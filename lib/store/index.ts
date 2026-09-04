@@ -38,7 +38,7 @@ class BlobStore implements Store {
   kind = "blob";
   private mod: Promise<typeof import("@vercel/blob")> = import("@vercel/blob");
   async get(key: string) {
-    const { head } = await this.mod;
+    const { head, BlobNotFoundError } = await this.mod;
     try {
       const meta = await head(key);
       const res = await fetch(meta.url, { cache: "no-store" });
@@ -46,7 +46,8 @@ class BlobStore implements Store {
       if (!res.ok) throw new Error(`blob fetch ${key}: HTTP ${res.status}`);
       return await res.text();
     } catch (e) {
-      if (e instanceof Error && /not.?found/i.test(e.name + e.message)) return null;
+      if (e instanceof BlobNotFoundError) return null;
+      if (e instanceof Error && /not.?found|does not exist/i.test(e.name + " " + e.message)) return null;
       throw e;
     }
   }
