@@ -1,24 +1,15 @@
 /**
- * Verify the free data sources end to end before trusting them:
- *   npx tsx scripts/probe-sources.ts [--provider yahoo|stooq|tiingo] [--symbols SPY,SSO,UPRO,...]
- * Prints the universe size from the scanner, then the last five bars of each symbol and whether
- * the newest bar date matches the newest SPY bar.
+ * Verify the data sources end to end before trusting them:
+ *   POLYGON_API_KEY=... npx tsx scripts/probe-sources.ts
+ * Prints the scanner universe size and industry sample, then the newest Polygon grouped-daily date
+ * with SPY / SSO / UPRO / MATX closes so you can check them against a chart.
  */
 import { fetchUniverse, fetchSpxMembers } from "../lib/data/tradingview";
-import { stooq, tiingo, yahoo, type BarProvider } from "../lib/data/providers";
+import { fetchGroupedDaily, weekdaysBetween } from "../lib/data/polygon";
 import { CONFIG } from "../lib/config";
 
-const arg = (k: string, d: string) => {
-  const i = process.argv.indexOf(k);
-  return i >= 0 ? process.argv[i + 1] : d;
-};
-const providers: Record<string, BarProvider> = { yahoo, stooq, tiingo };
-const provider = providers[arg("--provider", process.env.DATA_PROVIDER ?? "yahoo")];
-const symbols = arg("--symbols", "SPY,SSO,UPRO,MATX,INSW,SB,DAC,BWET,SNDK,MU,MRNA,BRK.B,VLUE,XBI,IWD,AAPL,NVDA,TGT,STX,DELL").split(",");
-
 async function main() {
-  console.log(`provider: ${provider.name}`);
-  console.log("\n== universe (TradingView scanner) ==");
+  console.log("== universe (TradingView scanner) ==");
   try {
     const u = await fetchUniverse({ minDollarVolume: CONFIG.MIN_DOLLAR_VOLUME_USD });
     const stocks = u.filter((r) => r.kind === "stock").length;
@@ -35,24 +26,22 @@ async function main() {
     console.log("scanner FAILED:", e instanceof Error ? e.message : e);
   }
 
-  console.log(`\n== bars (${provider.name}) ==`);
-  let spyLast = 0;
-  let okCount = 0;
-  for (const sym of symbols) {
+  console.log("\n== bars (Polygon grouped daily) ==");
+  const today = new Date().toISOString().slice(0, 10);
+  const days = weekdaysBetween(new Date(Date.now() - 10 * 86_400_000).toISOString().slice(0, 10), today).reverse();
+  for (const iso of days.slice(0, 3)) {
     try {
       const t0 = Date.now();
-      const b = await provider.fetchBars(sym, "full");
-      const n = b.t.length;
-      const last = b.t[n - 1];
-      if (sym === "SPY") spyLast = last;
-      const fresh = spyLast ? (last === spyLast ? "fresh" : `STALE vs SPY ${spyLast}`) : "";
-      if (last === spyLast) okCount++;
-      console.log(`${sym.padEnd(6)} ${String(n).padStart(4)} bars  ${b.t[0]} → ${last}  close ${b.c[n - 1].toFixed(2)}  ${fresh}  (${Date.now() - t0}ms)`);
-      console.log("       last 5 closes:", b.c.slice(-5).map((x) => x.toFixed(2)).join(", "));
+      const d = await fetchGroupedDaily(iso);
+      if (!d) {
+        console.log(`${iso}: no rows (closed or not yet published)`);
+        continue;
+      }
+      console.log(`${iso}: ${Object.keys(d.rows).length} tickers (${Date.now() - t0}ms)`);
+      for (const s of ["SPY", "SSO", "UPRO", "MATX", "BRK.B", "BWET"]) console.log(`   ${s.padEnd(6)}`, d.rows[s] ? `close ${d.rows[s][3]}  vol ${d.rows[s][4]}` : "missing");
     } catch (e) {
-      console.log(`${sym.padEnd(6)} FAILED: ${e instanceof Error ? e.message : e}`);
+      console.log(`${iso}: FAILED ${e instanceof Error ? e.message : e}`);
     }
   }
-  console.log(`\n${okCount}/${symbols.length} symbols end on the same bar as SPY (${spyLast}). Check the closes against a chart before backfilling.`);
 }
 main().catch((e) => { console.error(e); process.exit(1); });

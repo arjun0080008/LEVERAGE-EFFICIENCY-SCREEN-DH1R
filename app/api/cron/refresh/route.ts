@@ -47,7 +47,7 @@ async function handle(req: NextRequest) {
     );
   }
   return NextResponse.json({
-    job: { id: result.job.id, phase: result.job.phase, shards: `${result.job.shardsDone.length}/${result.job.totalShards}`, hops: result.job.hops, lastError: result.job.lastError },
+    job: { id: result.job.id, phase: result.job.phase, target: result.job.target, days: `${result.job.totalDates - result.job.pending.length}/${result.job.totalDates}`, hops: result.job.hops, rateLimitWaits: result.job.rateLimitWaits, lastError: result.job.lastError },
     chained: result.needsChain,
     budgetMs: CONFIG.TIME_BUDGET_MS,
     log: lines,

@@ -216,3 +216,17 @@ test("industry table excludes small groups and sorts by mean k/m", () => {
   for (let i = 1; i < t.length; i++) assert.ok(t[i - 1].meanRRR >= t[i].meanRRR);
   assert.equal(industryTable(scored, 66).length, 0);
 });
+
+test("pivot turns day rows into per-symbol series in date order", async () => {
+  const { pivot } = await import("../lib/job/bars");
+  const days: Array<{ date: number; rows: Record<string, [number, number, number, number, number]> }> = [
+    { date: 20260903, rows: { SPY: [1, 2, 0.5, 1.5, 100] as [number, number, number, number, number], AAA: [1, 1, 1, 1, 1] as [number, number, number, number, number] } },
+    { date: 20260901, rows: { SPY: [1, 2, 0.5, 1.2, 90] as [number, number, number, number, number] } },
+    { date: 20260902, rows: { SPY: [1, 2, 0.5, 1.3, 95] as [number, number, number, number, number], ZZZ: [1, 1, 1, 1, 1] as [number, number, number, number, number] } },
+  ];
+  const m = pivot(days, new Set(["SPY", "AAA"]));
+  assert.deepEqual(m.get("SPY")?.t, [20260901, 20260902, 20260903]);
+  assert.deepEqual(m.get("SPY")?.c, [1.2, 1.3, 1.5]);
+  assert.deepEqual(m.get("AAA")?.t, [20260903]);
+  assert.equal(m.has("ZZZ"), false);
+});

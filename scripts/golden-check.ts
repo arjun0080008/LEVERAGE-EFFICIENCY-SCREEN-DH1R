@@ -5,14 +5,14 @@
  *   STORE=fs npx tsx scripts/golden-check.ts [--asof 2026-09-03] [--tol 0.02]
  *   (or with BLOB_READ_WRITE_TOKEN set, reads the shards from Vercel Blob)
  *
- * Requires bars in the store that reach back at least 253 bars before the golden date.
+ * Requires day files in the store that reach back at least 253 trading days before the golden date.
  */
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { build } from "../lib/job/build";
-import type { ShardDoc, UniverseDoc } from "../lib/job/refresh";
+import { loadBars, loadIndex } from "../lib/job/bars";
+import type { UniverseDoc } from "../lib/job/refresh";
 import { getJson, KEYS } from "../lib/store";
-import type { Bars } from "../lib/types";
 import { ymdFromIso } from "../lib/data/dates";
 import { CONFIG } from "../lib/config";
 
@@ -37,15 +37,12 @@ async function main() {
 
   const universe = await getJson<UniverseDoc>(KEYS.universe);
   if (!universe) throw new Error("no universe in the store; run the refresh first");
-  const bars = new Map<string, Bars>();
-  const shards = Math.ceil(universe.rows.length / CONFIG.SHARD_SIZE);
-  for (let i = 0; i < shards; i++) {
-    const s = await getJson<ShardDoc>(KEYS.shard(i));
-    if (s) for (const [k, v] of Object.entries(s)) bars.set(k, v);
-  }
+  const index = await loadIndex();
+  const wanted = new Set<string>([...universe.rows.map((r) => r.sym), ...CONFIG.BENCHMARKS]);
+  const { bars } = await loadBars(index, wanted, (m) => console.log(m));
   const spy = bars.get("SPY");
   if (!spy || !spy.t.includes(asOf)) throw new Error(`SPY has no bar on ${asOfIso}; stored range ${spy?.t[0]}–${spy?.t[spy.t.length - 1]}`);
-  const { snapshot, scored } = build({ universe: universe.rows, universeSource: universe.source, scanned: universe.scanned, bars, fetchFailed: 0, provider: "store", prevTotal: null, todayNY: asOf, asOf });
+  const { snapshot, scored } = build({ universe: universe.rows, universeSource: universe.source, scanned: universe.scanned, bars, fetchFailed: 0, provider: "polygon", prevTotal: null, todayNY: asOf, asOf });
   const by = new Map(scored.map((s) => [s.sym, s]));
 
   console.log(`rebuilt ${asOfIso}: ${snapshot.universe.total} names, ${snapshot.totals.green} green, ${snapshot.totals.listGreen} list-green (golden list has ${golden.length} rows shown of its total)`);

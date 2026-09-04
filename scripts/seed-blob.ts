@@ -11,7 +11,7 @@ async function walk(dir: string): Promise<string[]> {
   for (const e of await fs.readdir(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
     if (e.isDirectory()) out.push(...(await walk(p)));
-    else if (e.name.endsWith(".json")) out.push(p);
+    else if (e.name.endsWith(".json") || e.name.endsWith(".gz")) out.push(p);
   }
   return out;
 }
@@ -22,8 +22,8 @@ async function main() {
   const files = await walk(root);
   for (const f of files) {
     const key = path.relative(root, f).split(path.sep).join("/");
-    const body = await fs.readFile(f, "utf8");
-    await put(key, body, { access: "public", addRandomSuffix: false, contentType: "application/json" });
+    const body = await fs.readFile(f);
+    await put(key, body, { access: "public", addRandomSuffix: false, contentType: key.endsWith(".gz") ? "application/gzip" : "application/json" });
     console.log("uploaded", key, `${(body.length / 1024).toFixed(0)} KB`);
   }
   console.log(`${files.length} files uploaded`);

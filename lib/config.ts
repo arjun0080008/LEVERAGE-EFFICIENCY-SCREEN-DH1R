@@ -27,12 +27,16 @@ export const CONFIG = {
   /** universe shrink that is treated as a data-source failure */
   ROW_COUNT_GUARD: 0.15,
   /** fetch orchestration */
-  SHARD_SIZE: num("SHARD_SIZE", 100),
-  FETCH_CONCURRENCY: num("FETCH_CONCURRENCY", 6),
   TIME_BUDGET_MS: num("TIME_BUDGET_MS", 45_000),
-  MAX_HOPS: num("MAX_HOPS", 80),
-  /** a shard whose newest bar is at most this many calendar days old gets an incremental fetch */
-  INCREMENTAL_MAX_AGE_DAYS: 12,
+  MAX_HOPS: num("MAX_HOPS", 400),
+  /** calendar days of history to backfill (≈ 2 years, the free Polygon plan's limit) */
+  BACKFILL_DAYS: num("BACKFILL_DAYS", 740),
+  /** day files whose newest date is older than this are deleted */
+  RETENTION_DAYS: num("RETENTION_DAYS", 820),
+  /** pause after a 429 from Polygon (free plan: 5 requests per minute) */
+  RATE_LIMIT_WAIT_MS: num("RATE_LIMIT_WAIT_MS", 12_500),
+  /** parallel day-file downloads in the compute phase */
+  LOAD_CONCURRENCY: num("LOAD_CONCURRENCY", 12),
   /** page shows a stale warning when the newest bar is older than this many calendar days */
   STALE_AFTER_DAYS: 4,
   BENCHMARKS: ["SPY", "SSO", "UPRO"] as const,

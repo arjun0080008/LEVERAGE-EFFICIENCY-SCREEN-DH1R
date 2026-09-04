@@ -28,11 +28,11 @@ jobs:
         run: |
           if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET not set; skipping"; exit 0; fi
           q="?hop=1"; [ "$FORCE" = "1" ] && q="?force=1"
-          for i in $(seq 1 120); do
+          for i in $(seq 1 400); do
             out=$(curl -sS --max-time 120 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/refresh$q") || { echo "call failed, retrying"; sleep 20; continue; }
             phase=$(echo "$out" | sed -n 's/.*"phase":"\([a-z]*\)".*/\1/p')
-            echo "hop $i: phase=$phase $(echo "$out" | sed -n 's/.*"shards":"\([0-9/]*\)".*/shards=\1/p')"
+            echo "hop $i: phase=$phase $(echo "$out" | sed -n 's/.*"days":"\([0-9/]*\)".*/days=\1/p')"
             case "$phase" in done|skipped) exit 0;; failed) echo "$out"; exit 1;; esac
             q="?hop=1"; sleep 5
           done
-          echo "gave up after 120 hops"; exit 1
+          echo "gave up after 400 hops"; exit 1
