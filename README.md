@@ -213,7 +213,7 @@ Reference rows to expect: Marine Shipping `26 | 3.96 | 2.63 | 1.52 | 21 | 81`, O
 `10 | 5.62 | 3.23 | 1.80 | 8 | 80`, Computer Peripherals `13 | 15.21 | 5.42 | 2.22 | 5 | 38`, SSO k/m `0.903`, UPRO
 `0.866`. **This check has not been run yet** for the reason in the honest note above; it is the first thing to run
 after deploying. Expect small differences from (a) the universe filter ($1M vs the reference run's $5M turnover
-floor, which changes `n` per industry), (b) the industry minimum, and (c) any difference between Yahoo's and
+floor, which changes `n` per industry), (b) the industry minimum, and (c) any difference between Polygon's and
 TradingView's split adjustment on individual names. Differences in k/m on a name whose bars agree would indicate a
 real bug.
 
