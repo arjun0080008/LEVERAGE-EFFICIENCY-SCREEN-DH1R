@@ -24,6 +24,8 @@ export interface JobState {
   lastError: string | null;
   log: string[];
   finishedAt: string | null;
+  /** while set and in the future, another invocation is working this job and new callers must not */
+  leaseUntil: string | null;
 }
 
 export interface UniverseDoc {
@@ -46,6 +48,8 @@ export interface RunResult {
   job: JobState;
   /** true when another invocation is needed to finish */
   needsChain: boolean;
+  /** true when another invocation holds the lease and this call did nothing */
+  busy?: boolean;
 }
 
 const nowIso = () => new Date().toISOString();
@@ -103,6 +107,7 @@ async function startJob(opts: RunOptions): Promise<JobState> {
     lastError: null,
     log: [],
     finishedAt: null,
+    leaseUntil: null,
   };
   log(job, `job ${job.id} started by ${opts.trigger}; bars=polygon grouped daily; store=${getStore().kind}`, opts);
 
@@ -292,12 +297,18 @@ export async function runRefresh(opts: RunOptions): Promise<RunResult> {
   const deadline = t0 + budget;
   let job = await getJson<JobState>(KEYS.job);
   const active = job && (job.phase === "fetch" || job.phase === "compute") && Date.now() - Date.parse(job.startedAt) < STALE_JOB_MS;
+  if (active && job?.leaseUntil && Date.parse(job.leaseUntil) > Date.now()) {
+    opts.log?.(`job ${job.id} is being worked by another invocation until ${job.leaseUntil}; nothing to do`);
+    return { job, needsChain: false, busy: true };
+  }
   if (!active || (opts.trigger !== "chain" && opts.force)) {
     job = await startJob(opts);
     if (job.phase === "skipped") return { job, needsChain: false };
   }
   job = job as JobState;
   job.hops++;
+  job.leaseUntil = new Date(deadline + 30_000).toISOString();
+  await putJson(KEYS.job, job);
   if (job.hops > CONFIG.MAX_HOPS) {
     job.phase = "failed";
     job.lastError = `exceeded ${CONFIG.MAX_HOPS} invocations`;
@@ -327,10 +338,13 @@ export async function runRefresh(opts: RunOptions): Promise<RunResult> {
     const msg = e instanceof Error ? e.stack ?? e.message : String(e);
     job.lastError = msg;
     log(job, `error: ${msg}`, opts);
+    job.leaseUntil = null;
     await putJson(KEYS.job, job);
     await saveStatus({ lastRunAt: nowIso(), lastRunAtNY: nowNewYork(), result: "running", message: `Job ${job.id} hit an error and will retry on the next invocation: ${msg.split("\n")[0]}`, asOf: null, jobId: job.id, checks: [], hops: job.hops });
     return { job, needsChain: true };
   }
+  job.leaseUntil = null;
+  await putJson(KEYS.job, job);
   return { job, needsChain: job.phase === "fetch" || job.phase === "compute" };
 }
 

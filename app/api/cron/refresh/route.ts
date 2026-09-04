@@ -73,6 +73,7 @@ async function handle(req: NextRequest) {
   if (result.needsChain) await kick(req);
   return NextResponse.json({
     job: { id: result.job.id, phase: result.job.phase, target: result.job.target, days: `${result.job.totalDates - result.job.pending.length}/${result.job.totalDates}`, hops: result.job.hops, rateLimitWaits: result.job.rateLimitWaits, lastError: result.job.lastError },
+    busy: !!result.busy,
     chained: result.needsChain,
     budgetMs: CONFIG.TIME_BUDGET_MS,
     log: lines,

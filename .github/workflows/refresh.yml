@@ -33,6 +33,6 @@ jobs:
             phase=$(echo "$out" | sed -n 's/.*"phase":"\([a-z]*\)".*/\1/p')
             echo "hop $i: phase=$phase $(echo "$out" | sed -n 's/.*"days":"\([0-9/]*\)".*/days=\1/p')"
             case "$phase" in done|skipped) exit 0;; failed) echo "$out"; exit 1;; esac
-            q=""; sleep 5
+            q=""; echo "$out" | grep -q '"busy":true' && sleep 50 || sleep 5
           done
           echo "gave up after 400 hops"; exit 1

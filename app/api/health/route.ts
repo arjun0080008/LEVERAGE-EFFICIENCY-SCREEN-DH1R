@@ -24,7 +24,7 @@ export async function GET() {
       snapshot: latest ? { asOf: latest.asOfIso, generatedAt: latest.generatedAt, names: latest.universe.total, green: latest.totals.green, listGreen: latest.totals.listGreen, ageDays: age, stale: age !== null && age > CONFIG.STALE_AFTER_DAYS } : null,
       bars: { tradingDaysStored: held.size, from: dates[0] ?? null, to: dates[dates.length - 1] ?? null, files: index.files.length },
       lastRun: status,
-      job: job ? { id: job.id, phase: job.phase, target: job.target, daysFetched: `${job.totalDates - job.pending.length}/${job.totalDates}`, hops: job.hops, rateLimitWaits: job.rateLimitWaits, startedAt: job.startedAt, finishedAt: job.finishedAt, lastError: job.lastError, tail: job.log.slice(-8) } : null,
+      job: job ? { id: job.id, phase: job.phase, target: job.target, daysFetched: `${job.totalDates - job.pending.length}/${job.totalDates}`, hops: job.hops, rateLimitWaits: job.rateLimitWaits, leaseUntil: job.leaseUntil, startedAt: job.startedAt, finishedAt: job.finishedAt, lastError: job.lastError, tail: job.log.slice(-8) } : null,
       config: { minDollarVolume: CONFIG.MIN_DOLLAR_VOLUME_USD, minBars: CONFIG.MIN_BARS, maxBars: CONFIG.MAX_BARS, industryMinN: CONFIG.INDUSTRY_MIN_N, backfillDays: CONFIG.BACKFILL_DAYS, timeBudgetMs: CONFIG.TIME_BUDGET_MS },
     });
   } catch (e) {
