@@ -4,6 +4,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { authorised, selfUrl } from "@/lib/auth";
 import { CONFIG } from "@/lib/config";
 import { runRefresh } from "@/lib/job/refresh";
+import { KEYS, putJson } from "@/lib/store";
+import { nowNewYork } from "@/lib/data/dates";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -21,7 +23,14 @@ async function handle(req: NextRequest) {
   const force = req.nextUrl.searchParams.get("force") === "1";
   const chained = req.nextUrl.searchParams.get("hop") === "1";
   const lines: string[] = [];
-  const result = await runRefresh({ force, trigger: chained ? "chain" : "cron", log: (m) => lines.push(m) });
+  let result: Awaited<ReturnType<typeof runRefresh>>;
+  try {
+    result = await runRefresh({ force, trigger: chained ? "chain" : "cron", log: (m) => lines.push(m) });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    await putJson(KEYS.status, { lastRunAt: new Date().toISOString(), lastRunAtNY: nowNewYork(), result: "failed", message: `Could not start the job: ${msg}`, asOf: null, jobId: null, checks: [], hops: 0 }).catch(() => undefined);
+    return NextResponse.json({ error: msg, log: lines }, { status: 500 });
+  }
 
   if (result.job.phase === "done") revalidatePath("/");
 
