@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/cron/refresh", "schedule": "0 23 * * 1-5" }
+  ],
+  "functions": {
+    "app/api/cron/refresh/route.ts": { "maxDuration": 60, "memory": 1024 }
+  }
+}

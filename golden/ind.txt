@@ -1,0 +1,100 @@
+Computer Peripherals|13|15.21|5.42|2.22|5|38
+Oil Refining/Marketing|10|5.62|3.23|1.8|8|80
+Marine Shipping|26|3.96|2.63|1.52|21|81
+Biotechnology|110|6.39|4.98|1.31|51|46
+Electronic Production Equipment|19|8.65|5.27|1.25|10|53
+Contract Drilling|9|4.21|3.35|1.24|6|67
+Oilfield Services/Equipment|20|4.2|3.7|1.21|11|55
+Pharmaceuticals: Major|117|4.64|4.62|1.05|45|38
+Electronics Distributors|5|2.33|3.12|0.99|3|60
+Semiconductors|59|4.57|5.37|0.82|17|29
+Electronic Components|13|4.32|5.4|0.81|4|31
+Hospital/Nursing Management|8|2.84|3.15|0.81|2|25
+Savings Banks|12|1.52|2.12|0.81|4|33
+Wireless Telecommunications|8|3.09|3.03|0.79|3|38
+Specialty Telecommunications|5|3.35|5.07|0.78|2|40
+Computer Processing Hardware|9|3.09|5.48|0.76|2|22
+Other Metals/Minerals|24|3.48|5.65|0.74|7|29
+Trucking|13|1.91|3.38|0.68|3|23
+Steel|9|1.8|3.4|0.66|2|22
+Oil & Gas Pipelines|16|1.06|2.26|0.63|1|6
+Precious Metals|15|3.47|5.67|0.61|2|13
+Electronic Equipment/Instruments|21|3.05|4.29|0.61|5|24
+Cable/Satellite TV|6|0.38|3.97|0.58|2|33
+Oil & Gas Production|23|2.11|3.64|0.57|5|22
+Medical/Nursing Services|30|2.09|4.28|0.55|9|30
+Coal|6|1.71|4.1|0.54|1|17
+Telecommunications Equipment|15|2.17|4.47|0.53|4|27
+Movies/Entertainment|17|1.09|3.22|0.53|5|29
+Food Distributors|6|1.37|2.79|0.53|1|17
+Regional Banks|105|0.93|2.12|0.51|13|12
+Trucks/Construction/Farm Machinery|19|1.35|2.84|0.51|5|26
+Integrated Oil|21|1.36|3.31|0.51|4|19
+Gas Distributors|15|0.99|1.93|0.5|2|13
+Property/Casualty Insurance|30|0.88|2.39|0.49|5|17
+Medical Specialties|89|1.7|3.81|0.48|17|19
+Managed Health Care|8|1.81|3.88|0.48|1|13
+Broadcasting|6|2|3.62|0.48|1|17
+Air Freight/Couriers|10|1.19|3.16|0.47|3|30
+Electronics/Appliances|6|1.08|3.37|0.46|2|33
+Life/Health Insurance|10|1.05|2.48|0.44|0|0
+Major Banks|49|0.93|2.25|0.43|1|2
+Beverages: Non-Alcoholic|8|0.59|2.75|0.42|3|38
+Industrial Machinery|60|1.65|3.81|0.41|12|20
+Engineering & Construction|29|2.91|4.8|0.41|3|10
+Chemicals: Specialty|28|1.62|3.59|0.4|4|14
+Chemicals: Major Diversified|7|1.11|3.16|0.4|0|0
+Water Utilities|6|0.66|1.88|0.37|0|0
+Metal Fabrication|5|0.94|3.92|0.36|0|0
+Major Telecommunications|6|0.99|4.39|0.35|1|17
+Multi-Line Insurance|26|0.57|2.29|0.35|3|12
+Personnel Services|8|1.09|3.77|0.33|1|13
+Investment Banks/Brokers|30|0.78|3.14|0.32|4|13
+Chemicals: Agricultural|7|0.74|3.81|0.32|1|14
+Hotels/Resorts/Cruise lines|16|0.82|2.92|0.31|3|19
+Auto Parts: OEM|20|0.97|3.25|0.31|2|10
+Electrical Products|33|1.4|5.72|0.3|5|15
+Investment Managers|38|0.65|2.69|0.3|8|21
+Containers/Packaging|15|0.47|2.63|0.29|2|13
+Aerospace & Defense|43|0.76|3.89|0.28|6|14
+Apparel/Footwear Retail|20|1.07|4.22|0.26|4|20
+Construction Materials|10|0.61|2.85|0.24|2|20
+Motor Vehicles|11|0.39|3.52|0.23|1|9
+Miscellaneous Manufacturing|9|0.52|2.86|0.2|1|11
+Real Estate Investment Trusts|130|0.21|1.98|0.17|12|9
+Wholesale Distributors|24|0.22|3.57|0.17|2|8
+Electric Utilities|40|0.19|1.95|0.16|0|0
+Data Processing Services|24|1.51|6.32|0.15|1|4
+Information Technology Services|48|0.62|4.52|0.15|5|10
+Apparel/Footwear|20|0.46|3.65|0.14|2|10
+Miscellaneous Commercial Services|68|0.5|4.41|0.14|5|7
+Finance/Rental/Leasing|43|0.17|3.6|0.13|5|12
+Other Consumer Services|20|0.04|3.6|0.11|2|10
+Packaged Software|165|0.36|4.62|0.1|14|8
+Agricultural Commodities/Milling|11|0.05|3.71|0.1|1|9
+Specialty Stores|37|0.07|3.47|0.09|4|11
+Food: Specialty/Candy|24|0.26|2.65|0.09|2|8
+Specialty Insurance|8|0.18|2.17|0.08|0|0
+Restaurants|31|-0.17|3.99|0.07|3|10
+Recreational Products|11|0.31|3.35|0.07|0|0
+Internet Retail|12|-0.02|3.96|0.06|1|8
+Industrial Specialties|11|0.17|2.89|0.06|0|0
+Airlines|11|0.1|3.7|0.05|0|0
+Financial Publishing/Services|8|-0.13|3.08|0.05|1|13
+Food Retail|7|-0.11|3.19|0.03|1|14
+Environmental Services|8|-0.08|3.57|0.02|0|0
+Building Products|18|-0.25|3.91|0|1|6
+Food: Meat/Fish/Dairy|5|0.22|2.59|-0.02|0|0
+Internet Software/Services|35|-0.52|4.26|-0.05|3|9
+Automotive Aftermarket|5|-0.22|3.04|-0.07|0|0
+Household/Personal Care|12|-0.26|2.88|-0.08|0|0
+Homebuilding|16|-0.29|3.24|-0.09|0|0
+Financial Conglomerates|14|-0.27|4.38|-0.1|1|7
+Other Transportation|9|-0.84|5.71|-0.1|0|0
+Home Furnishings|8|-0.35|3.55|-0.1|1|13
+Casinos/Gaming|10|-0.39|3.36|-0.12|0|0
+Real Estate Development|14|-0.66|3.68|-0.13|0|0
+Investment Trusts/Mutual Funds|14|-0.28|2.15|-0.14|0|0
+Advertising/Marketing Services|6|-1.95|7.94|-0.15|0|0
+Insurance Brokers/Services|11|-0.69|3.28|-0.2|0|0
+Food: Major Diversified|7|-1.36|4.43|-0.29|0|0

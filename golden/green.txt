@@ -1,0 +1,150 @@
+BWET|ETF|Breakwave Tanker Shipping ETF|Amplify|3658|181.93|7.06|25.76|62|-41|701|6.08|136|2.88|85|1|30.9|169|1
+SNDK||Sandisk Corporation|Computer Peripherals|2833|140.92|7.61|18.52|67|-56|175|1.65|-12|0.32|64|1|1.4|17003|1
+ZCSH|ETF|Zcash ETF|Grayscale|2156|107.24|11.31|9.48|99|-70|398|3.19|107|4.14|53|1|38.6|25|1
+ANRO||Alto Neuroscience, Inc.|Biotechnology|908|45.18|5.97|7.57|52|-34|77|1.26|82|1.67|52|1|14.3|16|1
+RVMD||Revolution Medicines, Inc.|Pharmaceuticals: Other|430|21.4|3.2|6.69|28|-25|112|2.76|35|0.26|65|1|6.4|433|1
+MU||Micron Technology, Inc.|Semiconductors|707|35.17|5.43|6.48|48|-39|141|1.7|-4|0.31|59|1|2.6|22746|1
+ORKA||Oruka Therapeutics, Inc.|Pharmaceuticals: Major|489|24.34|4.39|5.54|38|-28|174|3.03|46|-1.5|71|0|0.5|75|1
+SYRE||Spyre Therapeutics, Inc|Pharmaceuticals: Major|419|20.84|4.2|4.96|37|-20|115|1.98|11|-1.73|60|0|-4|121|1
+SLS||SELLAS Life Sciences Group, Inc.|Pharmaceuticals: Major|670|33.31|6.77|4.92|59|-36|159|1.69|52|0.42|48|1|10.3|115|1
+MRNA||Moderna, Inc.|Biotechnology|519|25.81|5.38|4.8|47|-34|177|2.24|189|2.62|35|1|43.6|4693|1
+DNTH||Dianthus Therapeutics, Inc.|Biotechnology|345|17.14|3.82|4.49|33|-20|76|1.47|28|-0.44|69|0|2.6|55|0
+RLAY||Relay Therapeutics, Inc.|Biotechnology|363|18.03|4.27|4.23|37|-28|97|1.72|31|-0.71|43|0|0.9|51|0
+TWST||Twist Bioscience Corp.|Biotechnology|395|19.65|4.68|4.2|41|-26|165|2.53|74|0.1|63|1|15|202|0
+QTTB||Q32 Bio Inc|Biotechnology|649|32.26|7.7|4.19|67|-51|182|1.62|-9|-1.53|35|0|-1.5|5|1
+NESR||National Energy Services Reunited Corp|Oilfield Services/Equipment|269|13.36|3.19|4.18|28|-27|57|1.18|36|1.01|39|1|9.2|59|0
+CLYM||Climb Bio, Inc.|Biotechnology|498|24.77|5.93|4.17|52|-34|97|1.45|34|-0.49|60|0|5.5|27|1
+TXG||10x Genomics Inc Class A|Biotechnology|374|18.6|4.46|4.17|39|-28|192|3.22|89|1.42|84|1|16.5|173|0
+CDNA||CareDx, Inc.|Medical Specialties|292|14.51|3.61|4.02|32|-24|166|3.75|116|0.68|70|1|15.5|59|0
+NLST||Netlist, Inc.|Semiconductors|591|29.38|7.36|3.99|64|-47|346|3.45|77|0.81|56|1|27.8|21|1
+DFTX||Definium Therapeutics, Inc.|Pharmaceuticals: Major|319|15.89|4.2|3.79|37|-25|117|2.19|55|-1.76|49|0|-1.7|62|0
+CLMT||Calumet, Inc.|Oil Refining/Marketing|219|10.9|2.93|3.72|26|-15|77|1.85|43|2.51|59|1|12.5|62|0
+DELL||Dell Technologies, Inc. Class C|Computer Processing Hardware|316|15.74|4.26|3.69|37|-33|253|4.21|22|0.93|82|1|8.3|5457|0
+ATEX||Anterix Inc.|Wireless Telecommunications|288|14.31|3.89|3.67|34|-22|123|2.17|28|-0.64|72|0|-0.7|26|0
+STX||Seagate Technology Holdings PLC|Computer Peripherals|353|17.55|5.17|3.4|45|-32|117|1.6|-14|-0.96|57|0|-2.5|2393|0
+ETON||Eton Pharmaceuticals, Inc.|Pharmaceuticals: Major|243|12.1|3.77|3.21|33|-36|248|5.07|107|1.69|92|1|18.3|35|0
+TVTX||Travere Therapeutics, Inc.|Pharmaceuticals: Major|239|11.9|3.9|3.05|34|-33|144|3.8|44|1.13|67|1|8.4|82|0
+AXGN||Axogen, Inc.|Medical Specialties|202|10.03|3.33|3.02|29|-19|62|1.39|11|-0.12|43|1|5.4|41|0
+AMLX||Amylyx Pharmaceuticals, Inc.|Pharmaceuticals: Major|245|12.19|4.12|2.96|36|-31|141|2.78|137|1.42|60|1|25.7|84|0
+MBX||MBX Biosciences, Inc.|Biotechnology|327|16.24|5.81|2.8|51|-38|95|1.6|99|-0.93|43|0|2.8|22|0
+VLO||Valero Energy Corporation|Oil Refining/Marketing|139|6.89|2.47|2.79|22|-13|63|1.73|43|2.85|75|1|10.7|864|0
+BFLY||Butterfly Network, Inc. Class A|Medical Specialties|386|19.2|6.89|2.79|60|-41|94|1.09|40|-1.5|45|0|0.6|34|0
+INTC||Intel Corporation|Semiconductors|282|14.02|5.05|2.78|44|-42|99|1.39|-18|-0.69|48|0|-6|7458|0
+PLSE||Pulse Biosciences, Inc.|Medical Specialties|265|13.18|4.84|2.73|42|-37|194|3.14|103|2.57|52|1|23.1|30|0
+MATX||Matson, Inc.|Marine Shipping|118|5.86|2.17|2.7|19|-18|40|1.51|19|0.79|50|1|3.9|56|0
+MSGS||Madison Square Garden Sports Corp Cl A|Movies/Entertainment|98|4.85|1.81|2.68|16|-10|21|1.01|1|-1.37|28|0|-0.4|81|0
+ECPG||Encore Capital Group, Inc.|Finance/Rental/Leasing|133|6.61|2.51|2.64|22|-12|33|1.07|20|-0.5|64|0|2.5|35|0
+VSTS||Vestis Corporation|Apparel/Footwear|188|9.33|3.56|2.62|31|-26|56|1.38|-5|-1.82|62|0|-5.6|13|0
+KRYS||Krystal Biotech, Inc.|Biotechnology|147|7.33|2.8|2.62|25|-17|43|1.09|21|1.67|47|1|4.7|89|0
+CRAK|ETF|VanEck Oil Refiners ETF|VanEck|77|3.81|1.48|2.58|13|-14|35|1.59|26|3.2|68|1|7.9|26|0
+IOVA||Iovance Biotherapeutics Inc|Biotechnology|294|14.61|5.66|2.58|50|-39|90|1.14|99|2.17|36|1|26|110|0
+PTGX||Protagonist Therapeutics, Inc.|Pharmaceuticals: Major|156|7.76|3.01|2.57|26|-16|63|1.66|45|-0.23|62|1|4.9|71|0
+EVC||Entravision Communications Corporation|Broadcasting|240|11.96|4.69|2.55|41|-41|178|2.31|-7|-1.83|55|0|-10.1|10|0
+MRVI||Maravai Lifesciences Holdings Cl A|Biotechnology|212|10.56|4.16|2.54|36|-30|100|1.97|48|0.08|71|1|10.3|38|0
+OABI||OmniAb, Inc.|Miscellaneous Commercial Services|213|10.57|4.21|2.51|37|-37|138|2.41|79|3.07|42|1|32.1|9|0
+NVCT||Nuvectis Pharma, Inc.|Pharmaceuticals: Major|284|14.11|5.67|2.49|50|-37|170|1.83|152|1.08|36|1|13.6|5|0
+VLUE|ETF|iShares MSCI USA Value Factor ETF|iShares|72|3.57|1.43|2.49|13|-9|38|1.76|2|0.79|60|1|2.1|95|0
+XNCR||Xencor, Inc.|Biotechnology|220|10.92|4.54|2.4|40|-43|139|2.64|122|1.15|51|1|19|39|0
+MPC||Marathon Petroleum Corporation|Oil Refining/Marketing|117|5.8|2.46|2.35|22|-19|78|2.33|45|3.46|83|1|12.5|938|0
+VFLO|ETF|VictoryShares Free Cash Flow ETF|VictoryShares|50|2.5|1.07|2.34|9|-7|39|2.78|18|3.09|80|1|6.6|128|0
+MNPR||Monopar Therapeutics Inc|Biotechnology|227|11.31|4.84|2.33|42|-51|112|2.21|99|0.44|39|1|7.4|20|0
+DOCN||DigitalOcean Holdings, Inc.|Packaged Software|241|12.01|5.17|2.32|45|-42|103|1.33|-39|-1.09|55|0|-9|218|0
+RPRX||Royalty Pharma Plc Class A|Pharmaceuticals: Major|74|3.69|1.61|2.29|14|-7|40|2.13|16|2.13|80|1|5|154|0
+INSW||International Seaways, Inc.|Marine Shipping|122|6.08|2.67|2.28|23|-16|41|1.01|30|1.54|48|1|6.2|56|0
+MSGE||Madison Square Garden Entertainment|Movies/Entertainment|92|4.6|2.02|2.28|18|-13|31|1.23|9|-1.38|59|0|0.5|21|0
+SB||Safe Bulkers, Inc.|Marine Shipping|109|5.4|2.39|2.26|21|-15|43|1.21|41|2.59|48|1|10.3|8|0
+KNSA||Kiniksa Pharmaceuticals International|Pharmaceuticals: Major|127|6.31|2.8|2.25|25|-21|75|2.02|63|0.77|56|1|8.3|35|0
+RAPP||Rapport Therapeutics, Inc.|Biotechnology|217|10.78|4.85|2.22|42|-29|61|1.24|27|0.1|38|1|6.9|13|0
+MRVL||Marvell Technology, Inc.|Semiconductors|235|11.7|5.26|2.22|46|-48|176|2.06|-34|-0.86|76|0|-1.4|5277|0
+NWPX||NWPX Infrastructure Inc.|Construction Materials|115|5.7|2.59|2.2|23|-27|41|1.08|-10|-1.02|54|0|-5.7|18|0
+MRK||Merck & Co., Inc.|Pharmaceuticals: Major|81|4.03|1.84|2.19|16|-12|31|1.28|27|2.09|42|1|8.5|1626|0
+PSX||Phillips 66|Oil Refining/Marketing|95|4.73|2.16|2.19|19|-17|53|1.78|38|3.07|68|1|11.4|679|0
+NRIX||Nurix Therapeutics, Inc.|Biotechnology|168|8.34|3.82|2.19|33|-33|66|1.71|66|-0.53|44|1|5.2|31|0
+PWV|ETF|Invesco Large Cap Value ETF|Invesco|30|1.48|0.68|2.18|6|-4|18|2.18|10|1.86|89|1|2.5|11|0
+ILMN||Illumina, Inc.|Medical Specialties|131|6.5|3|2.17|26|-26|73|2|32|0.94|66|1|8|411|0
+UFCS||United Fire Group, Inc.|Property/Casualty Insurance|84|4.19|1.93|2.17|17|-12|49|1.88|28|0.94|52|1|3.8|8|0
+IDNA|ETF|iShares Genomics Immunology & Health|iShares|78|3.88|1.8|2.16|16|-11|36|1.46|34|2.51|47|1|9.5|6|0
+LFST||Lifestance Health Group, Inc.|Medical/Nursing Services|134|6.65|3.1|2.15|27|-17|85|1.96|68|1.82|64|1|9.3|45|0
+WTTR||Select Water Solutions, Inc. Class A|Oil & Gas Production|139|6.91|3.27|2.11|29|-21|44|1.06|5|-0.05|44|0|1.1|27|0
+JAZZ||Jazz Pharmaceuticals Public Ltd Co|Pharmaceuticals: Major|88|4.37|2.07|2.11|18|-11|35|1.36|3|-0.65|56|0|0.5|365|0
+ELVN||Enliven Therapeutics, Inc.|Biotechnology|185|9.19|4.38|2.1|38|-37|104|2.25|68|0.12|61|1|5.7|49|0
+CLBK||Columbia Financial Inc|Savings Banks|73|3.65|1.76|2.07|15|-13|42|2.24|27|0.96|75|1|5.5|35|0
+IMVT||Immunovant Inc|Biotechnology|134|6.68|3.23|2.07|28|-17|46|1.08|20|-1.35|53|0|1.5|46|0
+GTX||Garrett Motion Inc|Auto Parts: OEM|111|5.51|2.7|2.04|24|-29|45|1.18|-17|-1.03|55|0|-5.8|87|0
+MXL||MaxLinear, Inc.|Semiconductors|290|14.44|7.1|2.04|62|-55|263|2.31|-37|-1.45|42|0|-12.4|121|0
+GH||Guardant Health, Inc.|Medical Specialties|148|7.34|3.62|2.02|32|-33|74|1.54|21|-0.16|47|1|4|288|0
+IHE|ETF|iShares U.S. Pharmaceuticals ETF|iShares|48|2.38|1.2|1.99|10|-9|20|1.19|14|0.19|51|1|2.4|24|0
+IWX|ETF|iShares Russell Top 200 Value ETF|iShares|31|1.57|0.79|1.98|7|-7|19|1.77|8|0.88|87|1|2.1|28|0
+ABSI||Absci Corporation|Biotechnology|270|13.42|6.8|1.97|60|-54|240|2.93|20|-0.33|61|0|2.6|26|0
+DAC||Danaos Corporation|Marine Shipping|63|3.12|1.59|1.97|14|-13|39|1.69|19|2.07|56|1|6.5|18|0
+PSNL||Personalis, Inc.|Medical/Nursing Services|247|12.29|6.33|1.94|55|-55|97|1.18|39|1.06|44|1|14|62|0
+DIVB|ETF|iShares Core Dividend ETF|iShares|35|1.75|0.91|1.93|8|-7|26|2.26|11|1.83|89|1|3.6|26|0
+FLTW|ETF|Franklin FTSE Taiwan ETF|Franklin|96|4.79|2.49|1.92|22|-21|55|1.38|2|1.61|68|1|4.1|16|0
+HPE||Hewlett Packard Enterprise Co.|Computer Processing Hardware|139|6.89|3.59|1.92|31|-27|154|3.24|1|-0.39|60|1|4.6|1369|0
+FTNT||Fortinet, Inc.|Information Technology Services|104|5.18|2.7|1.92|24|-14|85|2.28|4|-0.32|58|0|2.4|724|0
+XBI|ETF|State Street SPDR S&P Biotech ETF|SPDR|76|3.76|1.96|1.91|17|-11|33|1.13|23|0.67|50|1|4.2|1341|0
+DGII||Digi International Inc.|Telecommunications Equipment|107|5.34|2.8|1.91|25|-18|40|1.01|1|-1.78|53|0|-0.3|26|0
+GSAT||Globalstar, Inc.|Wireless Telecommunications|171|8.51|4.47|1.9|39|-27|38|1.13|-1|-0.59|39|0|0.4|53|0
+SEIV|ETF|SEI Enhanced U.S. Large Cap Value|SEI|36|1.77|0.93|1.9|8|-7|21|1.85|5|0.7|72|1|2.1|8|0
+GMOI|ETF|GMO International Value ETF|GMO|36|1.78|0.94|1.89|8|-8|16|1.29|10|1.51|58|1|2.9|6|0
+AMD||Advanced Micro Devices, Inc.|Semiconductors|181|9.02|4.78|1.89|42|-28|129|2.06|-13|-0.81|51|0|-3|6915|0
+PVAL|ETF|Putnam Focused Large Cap Value ETF|Putnam|30|1.52|0.81|1.88|7|-7|15|1.47|6|0.23|78|1|1.5|76|0
+AMRX||Amneal Pharmaceuticals, Inc. Class A|Pharmaceuticals: Major|87|4.34|2.31|1.88|20|-22|35|1.07|32|0.04|45|1|2|29|0
+DINO||HF Sinclair Corporation|Oil Refining/Marketing|106|5.26|2.8|1.88|25|-18|86|2.33|46|2.91|71|1|12.3|252|0
+ACRS||Aclaris Therapeutics, Inc.|Pharmaceuticals: Major|189|9.39|5.01|1.88|44|-37|91|1.68|26|-0.13|60|1|5.2|10|0
+CBL||CBL & Associates Properties, Inc.|Real Estate Investment Trusts|75|3.74|2|1.87|17|-14|46|1.71|16|-0.77|63|0|0.4|12|0
+FELV|ETF|Fidelity Enhanced Large Cap Value ETF|Fidelity|31|1.55|0.83|1.87|7|-7|20|1.83|8|0.65|92|1|2|7|0
+FBT|ETF|First Trust NYSE Arca Biotechnology|First Trust|56|2.8|1.5|1.86|13|-14|37|1.86|21|2.1|75|1|5.1|15|0
+OII||Oceaneering International, Inc.|Industrial Machinery|119|5.9|3.16|1.86|28|-15|50|1.2|30|0.37|33|1|6.3|43|0
+DFLV|ETF|Dimensional US Large Cap Value ETF|Dimensional|31|1.52|0.82|1.86|7|-6|16|1.63|6|0.91|76|1|1.9|23|0
+STT||State Street Corporation|Investment Banks/Brokers|72|3.56|1.92|1.86|17|-12|55|2.64|19|0.69|73|1|3.6|247|0
+FNDX|ETF|Schwab Fundamental U.S. Large Company|Schwab|28|1.38|0.75|1.83|7|-6|15|1.59|5|0.9|71|1|1.5|93|0
+AVLV|ETF|Avantis U.S. Large Cap Value ETF|Avantis|33|1.63|0.89|1.83|8|-7|16|1.47|4|0.41|64|1|1.2|157|0
+KRT||Karat Packaging, Inc.|Containers/Packaging|88|4.39|2.43|1.8|21|-18|101|3.23|67|0.27|83|1|9.9|6|0
+RNG||RingCentral, Inc. Class A|Packaged Software|152|7.58|4.22|1.79|37|-29|92|1.67|73|2.51|53|1|19|113|0
+VFMF|ETF|Vanguard U.S. Multifactor ETF|Vanguard|32|1.61|0.9|1.79|8|-7|18|1.73|8|0.85|82|1|1.8|9|0
+EWT|ETF|iShares MSCI Taiwan ETF|iShares|88|4.35|2.43|1.79|21|-20|56|1.52|4|1.58|68|1|4.3|423|0
+TWLO||Twilio, Inc. Class A|Packaged Software|129|6.39|3.58|1.79|31|-25|92|2.02|2|0.57|58|1|6.3|394|0
+UGA|ETF|United States Gasoline Fund LP|US Commodity Funds|102|5.07|2.84|1.79|25|-20|56|1.25|25|2.49|72|1|6.8|6|0
+DFUV|ETF|Dimensional US Marketwide Value ETF|Dimensional|31|1.54|0.87|1.78|8|-6|17|1.54|6|0.72|75|1|1.7|23|0
+BNY||Bank of New York Mellon Corp|Investment Banks/Brokers|57|2.83|1.6|1.77|14|-10|41|2.29|14|0.65|62|1|3|459|0
+BAND||Bandwidth Inc. Class A|Packaged Software|207|10.27|5.81|1.77|51|-53|192|2|-36|-0.48|63|0|-6|33|0
+VONV|ETF|Vanguard Russell 1000 Value ETF|Vanguard|29|1.46|0.82|1.77|7|-7|17|1.61|8|0.51|84|1|1.8|66|0
+IWD|ETF|iShares Russell 1000 Value ETF|iShares|29|1.46|0.83|1.76|7|-7|18|1.62|8|0.52|86|1|1.8|387|0
+AMAL||Amalgamated Financial Corp|Regional Banks|71|3.54|2.01|1.76|18|-13|27|1.21|16|-0.6|53|0|0.9|9|0
+HAE||Haemonetics Corporation|Medical Specialties|93|4.63|2.63|1.76|23|-40|60|1.83|47|1.68|53|1|11.8|63|0
+PRF|ETF|Invesco RAFI US 1000 ETF|Invesco|28|1.39|0.79|1.76|7|-7|16|1.56|5|0.68|71|1|1.4|14|0
+TGT||Target Corporation|Specialty Stores|78|3.86|2.2|1.76|19|-14|36|1.22|32|1.19|57|1|7.5|754|0
+PAYS||Paysign, Inc.|Miscellaneous Commercial Services|145|7.21|4.11|1.75|36|-50|237|4.32|86|0.29|77|1|13.6|10|0
+CNC||Centene Corporation|Managed Health Care|126|6.28|3.59|1.75|31|-33|57|1.21|8|0.66|60|1|2.6|289|0
+NUE||Nucor Corporation|Steel|81|4.02|2.31|1.74|20|-18|53|1.68|0|0.37|66|1|2|341|0
+RWL|ETF|Invesco S&P 500 Revenue ETF|Invesco|26|1.29|0.74|1.73|7|-7|14|1.48|6|0.8|77|1|1.5|32|0
+MRX||Marex Group Limited|Internet Software/Services|111|5.51|3.19|1.73|28|-21|96|2.23|39|1.54|67|1|7.4|52|0
+FNDB|ETF|Schwab Fundamental U.S. Broad Market|Schwab|27|1.35|0.78|1.72|7|-7|14|1.49|5|0.59|72|1|1.4|26|0
+IBB|ETF|iShares Biotechnology ETF|iShares|52|2.6|1.52|1.71|13|-10|27|1.23|25|1.79|47|1|5.8|332|0
+LNTH||Lantheus Holdings Inc|Medical Specialties|83|4.13|2.42|1.71|21|-13|32|1.03|-2|-0.03|61|0|-0.3|109|0
+SNX||TD SYNNEX Corporation|Electronics Distributors|77|3.85|2.25|1.71|20|-19|66|2.3|-5|0.42|54|1|0.9|115|0
+MCS||Marcus Corporation|Movies/Entertainment|82|4.08|2.4|1.7|21|-20|57|1.71|37|-1.17|66|0|4.3|7|0
+ABCL||AbCellera Biologics, Inc.|Biotechnology|190|9.45|5.66|1.67|50|-55|222|3.14|82|2.02|59|1|23.9|62|0
+QMCO||Quantum Corporation|Computer Peripherals|237|11.79|7.18|1.64|63|-68|376|4.32|54|1.9|57|1|28.7|23|0
+ENVA||Enova International Inc|Finance/Rental/Leasing|94|4.69|2.87|1.64|25|-25|64|1.89|39|-1.53|70|0|-0.8|66|0
+SFLO|ETF|VictoryShares Small Cap Free Cash Flow|VictoryShares|40|1.99|1.24|1.61|11|-8|32|2.11|19|1.32|69|1|4.9|11|0
+MTW||Manitowoc Company, Inc.|Trucks/Construction/Farm Mach|107|5.3|3.29|1.61|29|-26|47|1.04|64|1.82|46|1|14.2|7|0
+NULV|ETF|Nuveen ESG Large-Cap Value ETF|Nuveen|27|1.32|0.82|1.6|7|-7|15|1.45|6|1.17|72|1|2.1|30|0
+DK||Delek US Holdings Inc|Oil Refining/Marketing|127|6.31|3.95|1.6|35|-36|62|1.09|52|1.25|67|1|10.7|136|0
+MOV||Movado Group, Inc.|Other Consumer Specialties|80|3.99|2.52|1.58|22|-15|39|1.17|-10|-1.56|41|0|-3.9|8|0
+CADL||Candel Therapeutics, Inc.|Biotechnology|154|7.66|4.84|1.58|42|-33|167|3|40|1.12|43|1|13.7|13|0
+SOPH||SOPHiA GENETICS SA|Packaged Software|142|7.06|4.49|1.57|39|-26|92|1.85|67|1.14|32|1|14.6|5|0
+CARE||Carter Bankshares, Inc.|Regional Banks|65|3.21|2.05|1.56|18|-16|53|2.12|12|-0.85|75|0|-0.8|8|0
+AVT||Avnet, Inc.|Electronics Distributors|73|3.64|2.33|1.56|20|-18|45|1.24|3|-0.36|52|0|0.6|94|0
+HZO||MarineMax, Inc.|Specialty Stores|108|5.38|3.46|1.56|30|-24|84|2.25|50|5.57|46|1|15|31|0
+JIVE|ETF|JPMorgan International Value ETF|JPMorgan|37|1.83|1.18|1.55|10|-11|16|1.03|7|1.56|58|1|2.3|29|0
+COLO|ETF|Global X MSCI Colombia ETF|Global X|57|2.81|1.81|1.55|16|-18|35|1.81|22|1.06|63|1|4.7|8|0
+NEO||NeoGenomics, Inc.|Medical/Nursing Services|113|5.63|3.65|1.54|32|-46|91|1.91|54|0.35|62|1|10.6|32|0
+CHEF||Chefs' Warehouse, Inc.|Food Distributors|79|3.93|2.56|1.54|22|-20|81|2.92|47|0.77|70|1|6.9|82|0
+XPH|ETF|State Street SPDR S&P Pharmaceuticals|SPDR|50|2.47|1.63|1.51|14|-12|28|1.26|23|-0.31|62|1|2.8|14|0
+BKDV|ETF|BNY Mellon Dynamic Value ETF|BNY Mellon|27|1.36|0.9|1.51|8|-7|15|1.33|5|0.23|71|1|1.3|12|0
+PARR||Par Pacific Holdings Inc|Oil Refining/Marketing|134|6.64|4.39|1.51|38|-27|64|1.02|48|1.11|54|1|6.4|72|0
+SAFT||Safety Insurance Group, Inc.|Property/Casualty Insurance|43|2.14|1.42|1.51|12|-15|37|2.12|51|0.57|41|1|7.4|13|0
+WT||WisdomTree, Inc.|Investment Managers|84|4.18|2.78|1.5|24|-27|45|1.08|31|1.3|60|1|10|65|0
+GVAL|ETF|Cambria Global Value ETF|Cambria|36|1.8|1.2|1.5|10|-12|18|1.03|8|1.04|47|1|2.3|8|0

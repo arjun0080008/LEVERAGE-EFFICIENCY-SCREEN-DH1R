@@ -1,0 +1,38 @@
+# Optional backup driver for the daily refresh.
+#
+# Vercel Cron on the Hobby plan fires once a day at an imprecise minute and each invocation is limited to
+# 60 seconds, so the refresh endpoint chains itself across invocations. This workflow is an independent
+# safety net: it calls the same endpoint in a loop until the job reports done, so the site still refreshes
+# even if a self-chained hop is dropped. It needs two repository secrets: APP_URL (https://your-app.vercel.app)
+# and CRON_SECRET (the same value set in Vercel). With the secrets unset it exits immediately.
+name: Nightly refresh (backup driver)
+on:
+  schedule:
+    - cron: "20 23 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Recompute even if SPY has no new bar"
+        required: false
+        default: "0"
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Drive the refresh job to completion
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          FORCE: ${{ github.event.inputs.force || '0' }}
+        run: |
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET not set; skipping"; exit 0; fi
+          q="?hop=1"; [ "$FORCE" = "1" ] && q="?force=1"
+          for i in $(seq 1 120); do
+            out=$(curl -sS --max-time 120 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/refresh$q") || { echo "call failed, retrying"; sleep 20; continue; }
+            phase=$(echo "$out" | sed -n 's/.*"phase":"\([a-z]*\)".*/\1/p')
+            echo "hop $i: phase=$phase $(echo "$out" | sed -n 's/.*"shards":"\([0-9/]*\)".*/shards=\1/p')"
+            case "$phase" in done|skipped) exit 0;; failed) echo "$out"; exit 1;; esac
+            q="?hop=1"; sleep 5
+          done
+          echo "gave up after 120 hops"; exit 1
