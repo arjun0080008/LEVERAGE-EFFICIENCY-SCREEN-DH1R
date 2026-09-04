@@ -59,7 +59,10 @@ class BlobStore implements Store {
     const { head, BlobNotFoundError } = await this.mod;
     try {
       const meta = await head(key);
-      const res = await fetch(meta.url, { cache: "no-store" });
+      // Blob downloads go through a CDN with a 60 s minimum cache; state files are rewritten every hop,
+      // so bust the cache on every read or a hop will see the previous hop's lease and progress.
+      const url = `${meta.url}${meta.url.includes("?") ? "&" : "?"}_=${Date.now()}`;
+      const res = await fetch(url, { cache: "no-store", headers: { "cache-control": "no-cache", pragma: "no-cache" } });
       if (res.status === 404) return null;
       if (!res.ok) throw new Error(`blob fetch ${key}: HTTP ${res.status}`);
       return new Uint8Array(await res.arrayBuffer());
