@@ -1,23 +1,36 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { CONFIG } from "@/lib/config";
 import { daysBetween, ymdFromDate } from "@/lib/data/dates";
 import { datesHeld, loadIndex } from "@/lib/job/bars";
+import { kickNextHop } from "@/lib/job/kick";
 import type { JobState } from "@/lib/job/refresh";
 import type { Snapshot, Status } from "@/lib/snapshot";
 import { getJson, getStore, KEYS } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 
-/** Public read-only health: what is live, how old it is, and how the last run went. */
-export async function GET() {
+const STALL_MS = 2 * 60 * 1000;
+
+/** True when a job is mid-flight but nothing has touched it for a while (a dropped hop). */
+function stalled(job: JobState | null): boolean {
+  if (!job || (job.phase !== "fetch" && job.phase !== "compute")) return false;
+  if (job.leaseUntil && Date.parse(job.leaseUntil) > Date.now()) return false;
+  const last = job.log.length ? Date.parse(job.log[job.log.length - 1].slice(0, 24)) : Date.parse(job.startedAt);
+  return Number.isFinite(last) && Date.now() - last > STALL_MS;
+}
+
+/** Public read-only health: what is live, how old it is, and how the last run went. Revives a stalled job. */
+export async function GET(req: NextRequest) {
   try {
     const [latest, status, job, index] = await Promise.all([getJson<Snapshot>(KEYS.latest), getJson<Status>(KEYS.status), getJson<JobState>(KEYS.job), loadIndex()]);
+    const revived = stalled(job) ? await kickNextHop(req) : false;
     const today = ymdFromDate(new Date());
     const age = latest ? daysBetween(latest.asOf, today) : null;
     const held = datesHeld(index);
     const dates = [...held].sort();
     return NextResponse.json({
       ok: !!latest,
+      revived,
       store: getStore().kind,
       provider: "polygon grouped daily",
       polygonKey: !!process.env.POLYGON_API_KEY,

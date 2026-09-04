@@ -48,8 +48,11 @@ all day files in parallel, pivots them into per-symbol series for the universe, 
 **Chunking.** A Hobby function gets 60 s and a Pro function 300 s, and the free Polygon plan allows 5 requests a
 minute, so the one-time backfill (~500 trading days) cannot happen in one invocation. The job keeps its state in Blob
 (`state/job.json`), fetches as many dates as the time budget allows (`TIME_BUDGET_MS`, default 45 s, pausing 12.5 s on
-a 429), saves, and re-invokes itself via `?hop=1` until the pending list is empty. The compute phase runs in its own
-invocation. Any call to the endpoint resumes the current job, so it is safe to poke it manually, and the optional
+a 429), saves, triggers the next hop and returns. The trigger is issued inside the request and awaited only until
+it is accepted (Vercel keeps running an accepted invocation after the caller disconnects); triggers issued from the
+post-response phase were observed to be dropped, which is why the chain does not use `waitUntil`. A lease in the job
+state stops two invocations from working the same job. The compute phase runs in its own invocation. Any call to the
+endpoint resumes the current job, `/api/health` re-triggers a job that has been idle for two minutes, and the optional
 GitHub Actions workflow (`.github/workflows/refresh.yml`) can drive it to completion as a backup.
 
 **Retention.** Day files whose newest date is older than `RETENTION_DAYS` (820) are deleted; series are trimmed to
