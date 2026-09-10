@@ -26,6 +26,8 @@ export interface JobState {
   finishedAt: string | null;
   /** while set and in the future, another invocation is working this job and new callers must not */
   leaseUntil: string | null;
+  /** random token of the invocation holding the lease; a claimant re-reads after writing and backs off if it lost */
+  leaseToken: string | null;
 }
 
 export interface UniverseDoc {
@@ -93,7 +95,7 @@ async function writeDayFile(index: DaysIndex, days: DayRows[]): Promise<void> {
   index.files.sort((a, b) => a.dates[0] - b.dates[0]);
 }
 
-async function startJob(opts: RunOptions): Promise<JobState> {
+async function startJob(opts: RunOptions, seed: { leaseUntil: string; leaseToken: string }): Promise<JobState> {
   const job: JobState = {
     id: `${ymdFromDate(new Date())}-${Math.random().toString(36).slice(2, 8)}`,
     startedAt: nowIso(),
@@ -107,7 +109,8 @@ async function startJob(opts: RunOptions): Promise<JobState> {
     lastError: null,
     log: [],
     finishedAt: null,
-    leaseUntil: null,
+    leaseUntil: seed.leaseUntil,
+    leaseToken: seed.leaseToken,
   };
   log(job, `job ${job.id} started by ${opts.trigger}; bars=polygon grouped daily; store=${getStore().kind}`, opts);
 
@@ -296,35 +299,87 @@ async function compute(job: JobState, opts: RunOptions): Promise<void> {
 }
 
 const STALE_JOB_MS = 12 * 3600 * 1000;
+const CLAIM_SETTLE_MS = 1500;
 
-/** One unit of work. Safe to call repeatedly; each call advances the current job as far as the time budget allows. */
+const isActive = (job: JobState | null): job is JobState => !!job && (job.phase === "fetch" || job.phase === "compute") && Date.now() - Date.parse(job.startedAt) < STALE_JOB_MS;
+const leaseLive = (job: JobState | null) => !!job?.leaseUntil && Date.parse(job.leaseUntil) > Date.now();
+
+/**
+ * Claim the lease with a random token, wait for concurrent writers to land, then re-read: whoever's token is
+ * recorded last owns the job; everyone else backs off. Blob has no atomic compare-and-swap, so this is the
+ * closest safe equivalent, and it holds as long as competing claims are more than a few hundred ms apart.
+ */
+async function claim(job: JobState, token: string, deadline: number): Promise<boolean> {
+  job.leaseUntil = new Date(deadline + 30_000).toISOString();
+  job.leaseToken = token;
+  await putJson(KEYS.job, job);
+  await sleep(CLAIM_SETTLE_MS);
+  const check = await getJson<JobState>(KEYS.job);
+  return check?.leaseToken === token;
+}
+
+/** One unit of work. Safe to call repeatedly and concurrently; only one caller at a time advances the job. */
 export async function runRefresh(opts: RunOptions): Promise<RunResult> {
   const t0 = Date.now();
   const budget = opts.budgetMs ?? CONFIG.TIME_BUDGET_MS;
   const deadline = t0 + budget;
+  const token = Math.random().toString(36).slice(2, 12);
   let job = await getJson<JobState>(KEYS.job);
-  const active = job && (job.phase === "fetch" || job.phase === "compute") && Date.now() - Date.parse(job.startedAt) < STALE_JOB_MS;
-  if (active && job?.leaseUntil && Date.parse(job.leaseUntil) > Date.now()) {
+
+  if (isActive(job) && leaseLive(job) && !(opts.trigger !== "chain" && opts.force)) {
     opts.log?.(`job ${job.id} is being worked by another invocation until ${job.leaseUntil}; nothing to do`);
     return { job, needsChain: false, busy: true };
   }
-  if (!active || (opts.trigger !== "chain" && opts.force)) {
-    job = await startJob(opts);
+
+  if (!isActive(job) || (opts.trigger !== "chain" && opts.force)) {
+    // Claim before starting so two simultaneous callers cannot both create a job.
+    const placeholder: JobState = {
+      id: "starting",
+      startedAt: nowIso(),
+      phase: "fetch",
+      target: "",
+      pending: [],
+      totalDates: 0,
+      hops: 0,
+      force: !!opts.force,
+      rateLimitWaits: 0,
+      lastError: null,
+      log: [],
+      finishedAt: null,
+      leaseUntil: null,
+      leaseToken: null,
+    };
+    if (!(await claim(placeholder, token, deadline))) {
+      opts.log?.("another invocation is starting the job; nothing to do");
+      return { job: placeholder, needsChain: false, busy: true };
+    }
+    job = await startJob(opts, { leaseUntil: placeholder.leaseUntil as string, leaseToken: token });
     if (job.phase === "skipped") return { job, needsChain: false };
+  } else if (!(await claim(job as JobState, token, deadline))) {
+    opts.log?.(`job ${(job as JobState).id}: lost the lease race to another invocation; nothing to do`);
+    return { job: job as JobState, needsChain: false, busy: true };
   }
   job = job as JobState;
   job.hops++;
-  job.leaseUntil = new Date(deadline + 30_000).toISOString();
-  await putJson(KEYS.job, job);
   if (job.hops > CONFIG.MAX_HOPS) {
     job.phase = "failed";
     job.lastError = `exceeded ${CONFIG.MAX_HOPS} invocations`;
     job.finishedAt = nowIso();
+    job.leaseUntil = null;
     await putJson(KEYS.job, job);
     await saveStatus({ lastRunAt: nowIso(), lastRunAtNY: nowNewYork(), result: "failed", message: job.lastError, asOf: null, jobId: job.id, checks: [], hops: job.hops });
     return { job, needsChain: false };
   }
+  await putJson(KEYS.job, job);
   await saveStatus({ lastRunAt: nowIso(), lastRunAtNY: nowNewYork(), result: "running", message: `Job ${job.id} in phase ${job.phase}: ${job.totalDates - job.pending.length}/${job.totalDates} trading days fetched (hop ${job.hops}).`, asOf: null, jobId: job.id, checks: [], hops: job.hops });
+
+  const release = async () => {
+    const current = await getJson<JobState>(KEYS.job);
+    if (current && current.leaseToken !== token) return; // someone else owns it now; do not clobber
+    job.leaseUntil = null;
+    job.leaseToken = null;
+    await putJson(KEYS.job, job);
+  };
 
   try {
     if (job.phase === "fetch") {
@@ -345,13 +400,11 @@ export async function runRefresh(opts: RunOptions): Promise<RunResult> {
     const msg = e instanceof Error ? e.stack ?? e.message : String(e);
     job.lastError = msg;
     log(job, `error: ${msg}`, opts);
-    job.leaseUntil = null;
-    await putJson(KEYS.job, job);
+    await release();
     await saveStatus({ lastRunAt: nowIso(), lastRunAtNY: nowNewYork(), result: "running", message: `Job ${job.id} hit an error and will retry on the next invocation: ${msg.split("\n")[0]}`, asOf: null, jobId: job.id, checks: [], hops: job.hops });
     return { job, needsChain: true };
   }
-  job.leaseUntil = null;
-  await putJson(KEYS.job, job);
+  await release();
   return { job, needsChain: job.phase === "fetch" || job.phase === "compute" };
 }
 

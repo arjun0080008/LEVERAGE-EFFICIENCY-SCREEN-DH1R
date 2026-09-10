@@ -16,6 +16,7 @@ const STALL_MS = 20 * 1000;
 function stalled(job: JobState | null): boolean {
   if (!job || (job.phase !== "fetch" && job.phase !== "compute")) return false;
   if (job.leaseUntil && Date.parse(job.leaseUntil) > Date.now()) return false;
+  if (Date.now() - Date.parse(job.startedAt) > 12 * 3600 * 1000) return false; // stale job: the next cron starts afresh
   const last = job.log.length ? Date.parse(job.log[job.log.length - 1].slice(0, 24)) : Date.parse(job.startedAt);
   return Number.isFinite(last) && Date.now() - last > STALL_MS;
 }
