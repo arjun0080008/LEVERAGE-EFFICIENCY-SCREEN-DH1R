@@ -4,6 +4,7 @@ import type { GreenRow, Snapshot, Status } from "@/lib/snapshot";
 import { benchNote, deck, f, headline, lookbackVerdicts, metricVerdict, n0, ordinal, pct, pctPlain, staleNote, times, words } from "@/lib/prose";
 import { formatLong } from "@/lib/data/dates";
 import { BenchChart, CountUp, Reveal, Scatter, Spark, ThemeToggle, Words, type ScatterPt } from "./ui";
+import { Revive } from "./Revive";
 
 type ISort = "meanRRR" | "meanK" | "pct" | "n";
 type GSort = "rrr" | "r12" | "momDays" | "mdd" | "adv" | "k";
@@ -67,6 +68,7 @@ export function Dashboard({ s, status }: { s: Snapshot; status: Status | null })
 
   return (
     <>
+      <Revive />
       <header className="top">
         <div className="in">
           <div className="brand">

@@ -27,6 +27,13 @@ export class RateLimited extends Error {
   }
 }
 
+/** 403: the plan does not include this date. On the free plan that is the current trading day until it settles overnight. */
+export class NotEntitled extends Error {
+  constructor(public iso: string) {
+    super(`polygon: 403 for ${iso} — the plan does not include this date yet (free plan: today's bars arrive the next day) or the key is wrong`);
+  }
+}
+
 export function polygonKey(): string {
   const k = process.env.POLYGON_API_KEY;
   if (!k) throw new Error("POLYGON_API_KEY is not set");
@@ -41,7 +48,7 @@ export async function fetchGroupedDaily(iso: string): Promise<DayRows | null> {
     text = await fetchText(url, { timeoutMs: 30_000, retries: 0, headers: { Accept: "application/json" } });
   } catch (e) {
     if (e instanceof HttpError && e.status === 429) throw new RateLimited();
-    if (e instanceof HttpError && e.status === 403) throw new Error("polygon: 403 — check POLYGON_API_KEY and that the plan includes this date range");
+    if (e instanceof HttpError && e.status === 403) throw new NotEntitled(iso);
     throw e;
   }
   const j = JSON.parse(text) as Grouped;

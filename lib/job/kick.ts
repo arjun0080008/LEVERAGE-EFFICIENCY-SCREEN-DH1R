@@ -10,11 +10,15 @@ import { selfUrl } from "@/lib/auth";
 export async function kickNextHop(req: NextRequest): Promise<boolean> {
   const next = selfUrl(req, "/api/cron/refresh?hop=1");
   const secret = process.env.CRON_SECRET ?? "";
-  try {
-    await fetch(next, { headers: { authorization: `Bearer ${secret}` }, cache: "no-store", signal: AbortSignal.timeout(6000) });
-    return true;
-  } catch (e) {
-    // an abort here means the request was sent but the hop is still working; that is the normal case
-    return !(e instanceof Error && e.name !== "TimeoutError" && e.name !== "AbortError");
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await fetch(next, { headers: { authorization: `Bearer ${secret}` }, cache: "no-store", signal: AbortSignal.timeout(8000) });
+      return true;
+    } catch (e) {
+      // an abort means the request was sent and the hop is still working: that is the normal case
+      if (e instanceof Error && (e.name === "TimeoutError" || e.name === "AbortError")) return true;
+      console.error(`chain trigger attempt ${attempt + 1} failed`, e);
+    }
   }
+  return false;
 }

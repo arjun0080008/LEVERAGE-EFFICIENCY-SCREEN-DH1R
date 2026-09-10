@@ -1,8 +1,10 @@
 import type { Status } from "@/lib/snapshot";
+import { Revive } from "./Revive";
 
 export function EmptyState({ status }: { status: Status | null }) {
   return (
     <main className="wrap">
+      <Revive />
       <div className="empty">
         <p className="eyebrow">Leverage-efficiency screen<span>·</span>No snapshot yet</p>
         <h1>Nothing to show until the first refresh has run.</h1>

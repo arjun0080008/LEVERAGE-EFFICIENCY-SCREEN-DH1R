@@ -36,8 +36,11 @@ golden                    the verified output for the 2026-09-03 close (green.tx
 ```
 
 **Schedule.** `vercel.json` runs `/api/cron/refresh` at `0 23 * * 1-5` (23:00 UTC, always after the 4pm ET close in
-both DST regimes). Holidays are detected by checking whether SPY has a bar newer than the live snapshot; if not, the
-run is skipped and the snapshot untouched.
+both DST regimes) and again at `30 9 * * 2-6` (05:30 ET the next morning). The second run exists for Polygon's free
+plan, which refuses the current day's grouped bars with a 403 until they settle overnight: the evening run then
+steps back a day and finds nothing new, and the morning run publishes the close. On a paid Polygon plan the evening
+run publishes the same day. Holidays are detected by asking Polygon for the expected date and finding no rows; the
+run is then skipped and the snapshot untouched. Hobby crons fire at an imprecise minute within the hour.
 
 **Day files, not symbol files.** Bars come from Polygon's *grouped daily* endpoint, which returns every US
 ticker's OHLCV for one trading date in a single request. So the store is organised by date: each fetch hop writes one

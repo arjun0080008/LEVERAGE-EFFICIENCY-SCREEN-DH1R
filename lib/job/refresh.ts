@@ -1,7 +1,7 @@
 import { CONFIG } from "@/lib/config";
 import { isoFromYmd, nowNewYork, ymdFromDate, ymdFromIso } from "@/lib/data/dates";
 import { fetchNasdaqUniverse } from "@/lib/data/nasdaq";
-import { fetchGroupedDaily, RateLimited, weekdaysBetween, type DayRows } from "@/lib/data/polygon";
+import { fetchGroupedDaily, NotEntitled, RateLimited, weekdaysBetween, type DayRows } from "@/lib/data/polygon";
 import { fetchSpxMembers, fetchUniverse } from "@/lib/data/tradingview";
 import type { Check, Snapshot, Status } from "@/lib/snapshot";
 import { getJson, getStore, KEYS, putGz, putJson } from "@/lib/store";
@@ -143,6 +143,13 @@ async function startJob(opts: RunOptions): Promise<JobState> {
         job.rateLimitWaits++;
         await sleep(CONFIG.RATE_LIMIT_WAIT_MS);
         tries--;
+        continue;
+      }
+      if (e instanceof NotEntitled && tries < 2) {
+        // The free plan refuses the current day until it has settled; treat it as not yet published and step back.
+        log(job, `${iso}: not yet available on this plan (403); trying the previous trading day`, opts);
+        iso = isoShift(iso, -1);
+        while ([0, 6].includes(new Date(iso + "T00:00:00Z").getUTCDay())) iso = isoShift(iso, -1);
         continue;
       }
       throw e;
