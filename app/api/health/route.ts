@@ -9,7 +9,8 @@ import { getJson, getStore, KEYS } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 
-const STALL_MS = 2 * 60 * 1000;
+// A hop holds a lease while it runs, so "no lease and nothing logged for 20 s" means the follow-on trigger was dropped.
+const STALL_MS = 20 * 1000;
 
 /** True when a job is mid-flight but nothing has touched it for a while (a dropped hop). */
 function stalled(job: JobState | null): boolean {

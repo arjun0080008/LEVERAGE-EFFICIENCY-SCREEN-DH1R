@@ -1,38 +1,41 @@
-# Optional backup driver for the daily refresh.
+# Backup driver for the refresh job. Needs no secrets.
 #
-# Vercel Cron on the Hobby plan fires once a day at an imprecise minute and each invocation is limited to
-# 60 seconds, so the refresh endpoint chains itself across invocations. This workflow is an independent
-# safety net: it calls the same endpoint in a loop until the job reports done, so the site still refreshes
-# even if a self-chained hop is dropped. It needs two repository secrets: APP_URL (https://your-app.vercel.app)
-# and CRON_SECRET (the same value set in Vercel). With the secrets unset it exits immediately.
-name: Nightly refresh (backup driver)
+# Vercel drops the "next hop" trigger that a chained function issues, but a hop started by an outside caller
+# always runs. /api/health is public and re-triggers the job whenever it finds one idle with no live lease,
+# so looping on /api/health from here drives a multi-hop backfill or catch-up to completion.
+#
+# Runs nightly as a safety net (GitHub schedules can be delayed by an hour or more, which is fine) and can be
+# started by hand from the Actions tab. APP_URL defaults to the production alias; override with a repository
+# variable or secret of the same name if the domain changes.
+name: Drive refresh to completion
 on:
   schedule:
-    - cron: "20 23 * * 1-5"
+    - cron: "40 23 * * 1-5"
+    - cron: "10 10 * * 2-6"
   workflow_dispatch:
-    inputs:
-      force:
-        description: "Recompute even if SPY has no new bar"
-        required: false
-        default: "0"
 jobs:
-  refresh:
+  drive:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 330
     steps:
-      - name: Drive the refresh job to completion
+      - name: Poll /api/health until the job is done
         env:
-          APP_URL: ${{ secrets.APP_URL }}
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-          FORCE: ${{ github.event.inputs.force || '0' }}
+          APP_URL: ${{ secrets.APP_URL || vars.APP_URL || 'https://leverage-efficiency-screen-dh-1-r-z.vercel.app' }}
         run: |
-          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET not set; skipping"; exit 0; fi
-          q=""; [ "$FORCE" = "1" ] && q="?force=1"
-          for i in $(seq 1 400); do
-            out=$(curl -sS --max-time 120 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/refresh$q") || { echo "call failed, retrying"; sleep 20; continue; }
-            phase=$(echo "$out" | sed -n 's/.*"phase":"\([a-z]*\)".*/\1/p')
-            echo "hop $i: phase=$phase $(echo "$out" | sed -n 's/.*"days":"\([0-9/]*\)".*/days=\1/p')"
-            case "$phase" in done|skipped) exit 0;; failed) echo "$out"; exit 1;; esac
-            q=""; echo "$out" | grep -q '"busy":true' && sleep 50 || sleep 5
+          idle=0
+          for i in $(seq 1 900); do
+            out=$(curl -sS --max-time 60 "$APP_URL/api/health") || { echo "call failed, retrying"; sleep 20; continue; }
+            phase=$(echo "$out" | sed -n 's/.*"job":{[^}]*"phase":"\([a-z]*\)".*/\1/p')
+            days=$(echo "$out" | sed -n 's/.*"daysFetched":"\([0-9/]*\)".*/\1/p')
+            revived=$(echo "$out" | grep -o '"revived":true' || true)
+            asof=$(echo "$out" | sed -n 's/.*"snapshot":{"asOf":"\([0-9-]*\)".*/\1/p')
+            echo "$(date -u +%H:%M:%S) phase=${phase:-none} days=${days:-?} snapshot=${asof:-none} ${revived:+REVIVED}"
+            case "$phase" in
+              done|skipped) echo "job finished"; exit 0;;
+              failed) echo "$out"; exit 1;;
+              fetch|compute) idle=0;;
+              *) idle=$((idle+1)); [ $idle -ge 6 ] && { echo "no active job; nothing to drive"; exit 0; };;
+            esac
+            sleep 20
           done
-          echo "gave up after 400 hops"; exit 1
+          echo "gave up after 5 hours"; exit 1
